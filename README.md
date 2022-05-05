@@ -25,11 +25,78 @@ All Abound CI-CD AutoDeploy
         3. Create public key and register to the server
 
 #### SSH-WITH-PRIVATKEY 👻
+1. Generate Privat key and Public Key:
+    * LOCAL
+        * Create KEY
+                                                        
+                achmad@achmad-Latitude-7480:~$ ssh-keygen
+2. Check Privat key and Public Key:
+    * LOCAL
+        * Check Private KEY
+        
+                achmad@achmad-Latitude-7480:~$ cat .ssh/id_rsa
+        * Check Public KEY
+        
+                achmad@achmad-Latitude-7480:~$ cat .ssh/id_rsa.pub
+3. Create "authorized_keys" on your SERVER
+    * LOCAL
+        * Add "authorized_keys" on server
+        
+                Sample: 
+                ssh-copy-id -i ~/.ssh/id_rsa.pub [USER_NAME]@[HOST_NAME]
+                
+                achmad@achmad-Latitude-7480:~$ ssh-copy-id -i ~/.ssh/id_rsa.pub root@199.192.36.59
+                /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/achmad/.ssh/id_rsa.pub"
+                /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+                /usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+                root@139.162.36.59's password: 
 
-    sudo docker run --name=[name container] -p [local port]:[docker port] [option] [image]
-    sudo docker run --name=MySql -p 33061:3306 -e MYSQL_ROOT_PASSWORD=1  mysql
+                Number of key(s) added: 1
+
+                Now try logging into the machine, with:   "ssh 'root@139.162.36.59'"
+                and check to make sure that only the key(s) you wanted were added.
+3. TEST 1, SSH Server With KEY
+    * LOCAL
+        * Like simple ssh to linux server
+        
+                Sample: 
+                ssh [USER_NAME]@[HOST_NAME]
+                
+                achmad@achmad-Latitude-7480:~$ ssh root@199.192.36.59
+                
+                NOTE:
+                If you login still using password then it dosen't work !
+                Floow Below.
+                
+### If you are asked to enter password when ssh ###
+* Following this:
+    * SERVER
+        * Login with ssh to the server with password:
+        
+                Sample: 
+                ssh [USER_NAME]@[HOST_NAME]
+                
+                achmad@achmad-Latitude-7480:~$ ssh root@199.192.36.59
+                
+        * Add varibale to authorized_keys for check file is exist:
+        
+                achmad@achmad-Latitude-Server:~$ echo public_key_string >> ~/.ssh/authorized_keys
+                
+        * Check authorized_keys:
+
+                achmad@achmad-Latitude-Server:~$ cat ~/.ssh/authorized_keys
+                
+        * Set Permission All file in .ssh :
+
+                achmad@achmad-Latitude-Server:~$ chmod -R go= ~/.ssh
+
+        * Set OWN User & Group Folder & File All file in .ssh :
+                
+                I user root user
+                achmad@achmad-Latitude-Server:~$ chown -R root:root ~/.ssh
+                
+        BACK TO STEP 4.
     
-    sudo docker exec -it MySql2 mysql -uroot -p // enter in mysql
 
 #### CONFIGURATION CI CD 👻
 
