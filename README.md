@@ -136,7 +136,7 @@ All Abound CI-CD AutoDeploy
                   
                   Copy your keys public and privat at LOCAL -> paste add on the Bitbucket -> Click Save Key Pair
                   
-            ![image](https://user-images.githubusercontent.com/77251566/167139850-852d3386-75d3-44db-9a04-118e8fa20b47.png)
+                ![image](https://user-images.githubusercontent.com/77251566/167139850-852d3386-75d3-44db-9a04-118e8fa20b47.png)
                   
 4. Code file .yml
     * BITBUCKET
