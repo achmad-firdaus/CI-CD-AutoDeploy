@@ -25,12 +25,12 @@ All Abound CI-CD AutoDeploy
         3. Create public key and register to the server
 
 #### SSH-WITH-PRIVATKEY 👻
-1. Generate Privat key and Public Key:
+1. Generate Privat key and Public Key
     * LOCAL
         * Create KEY
                                                         
                 achmad@achmad-Latitude-7480:~$ ssh-keygen
-2. Check Privat key and Public Key:
+2. Check Privat key and Public Key
     * LOCAL
         * Check Private KEY
         
@@ -99,9 +99,57 @@ All Abound CI-CD AutoDeploy
     
 
 #### CONFIGURATION CI CD 👻
+1. Create Pipline
+    * BITBUCKET
+        * Create .yml Manual by Default
+                                                        
+                Choose your repository -> Click Deployment -> Click Commit File
+                
+            ![image](https://user-images.githubusercontent.com/77251566/167135052-d7968e2a-dabf-4e23-8085-6d705a732bf7.png)
 
-    sudo docker exec -it [container name] bash
+2. Create variable for secret value, example for user, password, host and than anything
+    * BITBUCKET
+        * Create secret variable
+                                                        
+                Choose your repository -> Click Repository Settings -> Click Repository Variable
+                
+            * SAMPLE: BITBUCKET WITHOUT CREATE PIPLINE SO YOU CAN'T CREATE VARIBALE IN YOUR REPOSITORY 
+            ![image](https://user-images.githubusercontent.com/77251566/167136349-cefd65ad-2bf2-4f1e-8dae-f305c918b369.png)
+            * SAMPLE: BITBUCKET WITH CREATE PIPLINE SO YOU CAN CREATE VARIBALE IN YOUR REPOSITORY 
+            ![image](https://user-images.githubusercontent.com/77251566/167137998-e1f1599f-95fb-488d-be28-a3ca64dc55aa.png)
 
+                      Fill varibale with you want, check Secured if you feel it's a secret then star will appear
 
+3. Create SSH KEY
+    * BITBUCKET
+        * Generate SSH KEY
+                                                        
+                Choose your repository -> Click Repository Settings -> Click SSH Keys -> Click Generate Keys or Click Use myown Keys
+
+            ![image](https://user-images.githubusercontent.com/77251566/167141409-e4e14f0d-483e-4777-9c89-4140afda92e7.png)
+
+            * If you choose Generate Keys
+                  
+                  Copy your keys -> add on the SERVER in ~/.ssh/authorized_keys
+            
+            * If you choose Use my own keys
+                  
+                  Copy your keys public and privat at LOCAL -> paste add on the Bitbucket -> Click Save Key Pair
+                  
+            ![image](https://user-images.githubusercontent.com/77251566/167139850-852d3386-75d3-44db-9a04-118e8fa20b47.png)
+                  
+4. Code file .yml
+    * BITBUCKET
+        * Code file .yml for update automate
+
+                script:
+                  - echo "Your deployment script goes here..."
+                  - apt-get update -y
+                  - apt-get install -y ssh
+                  - echo $VARIABLE-SSH_PK_DEV > ~/.ssh/id_rsa
+                  - chmod 600 ~/.ssh/id_rsa
+                  - cat ~/.ssh/id_rsa
+                  - apt-get install ssh-askpass -y
+                  - ssh -o StrictHostKeyChecking=no ${VARIABLE-SSH_USER_DEV}@${VARIABLE-SSH_HOST_DEV} "cd /var/www/html/achmad/testing/ && git pull https://[USERNAME-BITBUCKET]:[PASSWORD-BITBUCKET]@bitbucket.org/[USERNAME-BITBUCKET]/[REPONAME-BITBUCKET].git  "
 
 
